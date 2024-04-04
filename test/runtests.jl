@@ -25,7 +25,7 @@ using Test
            0.223 -0.628 0.386;
            0.05 -0.428 0.189]
     
-    for i in range(1, 9)
+    for i = 1:9
         x_test, R_test = KinovaGen3.forward_kinematics(q[i, :]) 
         @test x_test ≈ x[i, :] atol=0.001
     end
