@@ -6,8 +6,8 @@ module KinovaGen3
 
 # Kinematics functions
 include("forward_kinematics.jl")
-include("jacobian.jl")
-# include("inverse_kinematics.jl")
+# include("jacobian.jl")
+include("inverse_kinematics.jl")
 
 # Dynamics functions
 # include("mass_matrix.jl")
@@ -20,12 +20,15 @@ export
     forward_kinematics
     jacobian!
     jacobian
-# export inverse_kinematics
-# export jacobian
+    inverse_kinematics!
+    inverse_kinematics
 
 # Dynamics of the robot
-# export mass_matrix
-# export coriolis
-# export gravity
+# export mass_matrix!
+#        mass_matrix
+#        coriolis!
+#        coriolis
+#        gravity!
+#        gravity
 
 end
