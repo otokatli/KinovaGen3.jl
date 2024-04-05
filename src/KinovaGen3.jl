@@ -6,8 +6,8 @@ module KinovaGen3
 
 # Kinematics functions
 include("forward_kinematics.jl")
+include("jacobian.jl")
 # include("inverse_kinematics.jl")
-# include("jacobian.jl")
 
 # Dynamics functions
 # include("mass_matrix.jl")
@@ -18,6 +18,8 @@ include("forward_kinematics.jl")
 export
     forward_kinematics!
     forward_kinematics
+    jacobian!
+    jacobian
 # export inverse_kinematics
 # export jacobian
 

@@ -1,4 +1,5 @@
 using KinovaGen3
+using LinearAlgebra
 using StaticArrays
 using Test
 
@@ -24,9 +25,39 @@ using Test
            -0.408 -0.397 0.007;
            0.223 -0.628 0.386;
            0.05 -0.428 0.189]
-    
+
     for i = 1:9
-        x_test, R_test = KinovaGen3.forward_kinematics(q[i, :]) 
+        x_test, R_test = KinovaGen3.forward_kinematics(q[i, :])
         @test x_test ≈ x[i, :] atol=0.001
+    end
+end
+
+@testset "Jacobian" begin
+    # Test configurations
+    q = SA[103.3 7.3 15.7 -113.1 232.7 120.3 271;
+           100.5 45 311.2 147.7 107.6 120.3 146.2;
+           349.9 75.8 217 15.5 107.6 250.3 150.6;
+           104.9 -20.2 239 -1.8 224.4 50.1 229.5;
+           33.2 85.2 30.2 -123.7 93.9 70.5 154.5;
+           231.4 53.6 233.3 20.7 238.9 257.5 255.1;
+           296.8 -80.1 216 99.5 207.9 60.9 284.9;
+           272.7 -42.8 133 77.6 257.7 320.4 147.2;
+           23.1 85.6 246.3 -135.7 334.9 52.1 279.6] * π / 180.0
+
+    # 2-norm of the Jacobian matrix calculated for each test configuration using
+    # pyKinovaGen3
+    norm_J = SA[2.695290125640038
+                2.715169687857208
+                2.8232396808761484
+                2.839615763639152
+                2.7393357697737786
+                2.8199282342881027
+                2.8436936137861863
+                2.8771005578029936
+                2.7602135697255377]
+
+    for i = 1:9
+        J = KinovaGen3.jacobian(q[i, :])
+        @test norm(J) ≈ norm_J[i] atol=1e-15
     end
 end
