@@ -12,7 +12,7 @@ include("inverse_kinematics.jl")
 # Dynamics functions
 include("mass_matrix.jl")
 include("coriolis.jl")
-# include("gravity.jl")
+include("gravity.jl")
 
 # Kinematics of the robot
 export
@@ -28,7 +28,7 @@ export mass_matrix!
        mass_matrix
        coriolis!
        coriolis
-#        gravity!
-#        gravity
+       gravity!
+       gravity
 
 end
