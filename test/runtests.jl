@@ -106,3 +106,39 @@ end
         @test KinovaGen3.inverse_kinematics(q[i, :], xp[i, :]) ≈ qp_from_python[i, :] atol=1e-5
     end
 end
+
+@testset "MassMatrix" begin
+    # Test configurations
+    q = SA[103.3 7.3 15.7 -113.1 232.7 120.3 271;
+           100.5 45 311.2 147.7 107.6 120.3 146.2;
+           349.9 75.8 217 15.5 107.6 250.3 150.6;
+           104.9 -20.2 239 -1.8 224.4 50.1 229.5;
+           33.2 85.2 30.2 -123.7 93.9 70.5 154.5;
+           231.4 53.6 233.3 20.7 238.9 257.5 255.1;
+           296.8 -80.1 216 99.5 207.9 60.9 284.9;
+           272.7 -42.8 133 77.6 257.7 320.4 147.2;
+           23.1 85.6 246.3 -135.7 334.9 52.1 279.6] * π / 180.0
+
+    # 2-norm of the mass matrix calculated for each test configuration using
+    # pyKinovaGen3
+    norm_M = SA[0.6410865923694515
+                0.5525829071524816
+                1.84257470802987
+                1.5681068449989206
+                0.7482246903685248
+                1.611311808057207
+                1.2521452057707438
+                1.4551974690958775
+                0.7301712904155682]
+
+    M = zeros(MMatrix{7, 7})
+
+    for i = 1:9
+        KinovaGen3.mass_matrix!(q[i, :], M)
+        @test norm(M) ≈ norm_M[i] atol=1e-15
+    end
+
+    for i = 1:9
+        @test norm(KinovaGen3.mass_matrix(q[i, :])) ≈ norm_M[i] atol=1e-15
+    end
+end

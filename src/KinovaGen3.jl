@@ -10,7 +10,7 @@ include("forward_kinematics.jl")
 include("inverse_kinematics.jl")
 
 # Dynamics functions
-# include("mass_matrix.jl")
+include("mass_matrix.jl")
 # include("coriolis.jl")
 # include("gravity.jl")
 
@@ -24,8 +24,8 @@ export
     inverse_kinematics
 
 # Dynamics of the robot
-# export mass_matrix!
-#        mass_matrix
+export mass_matrix!
+       mass_matrix
 #        coriolis!
 #        coriolis
 #        gravity!
