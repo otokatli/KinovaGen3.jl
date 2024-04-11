@@ -12,9 +12,18 @@ This function reduces the number of dynamic memory allocation.
 - `M::MMatrix{7, 7, Float64}`: the mass matrix of the robot []
 
 # Examples
-```julia-repl
-julia> mass_matrix(SVector(0., 0., 0., 0., 0., 0., 0.))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> M = zeros(MMatrix{7, 7})
+julia> mass_matrix!(q, M)
+7×7 MMatrix{7, 7, Float64, 49} with indices SOneTo(7)×SOneTo(7):
+  0.494054     -0.172401      0.26987      0.097991      0.030743     0.00400175   -0.000391656
+ -0.172401      0.652499     -0.235912     0.0970044    -0.0183927    0.00189615    0.000522066
+  0.26987      -0.235912      0.234615     0.000851294   0.0278451    0.00085165   -0.000479402
+  0.097991      0.0970044     0.000851294  0.238603      0.00116619   0.0346251     0.00192549
+  0.030743     -0.0183927     0.0278451    0.00116619    0.00750583   3.56828e-5    0.000463883
+  0.00400175    0.00189615    0.00085165   0.0346251     3.56828e-5   0.0126349     0.000656714
+ -0.000391656   0.000522066  -0.000479402  0.00192549    0.000463883  0.000656714   0.00067412
 ```
 """
 function mass_matrix!(q::SVector{7, Float64}, M::MMatrix{7, 7, Float64})
@@ -1379,15 +1388,21 @@ end
 
 Calculate the mass matrix of Kinova Gen3 robot for a given configuration.
 
-This function does not perform dynamic memory allocation.
-
 # Arguments
 - `q::SVector{7, Float64}`: the joint angles of the robot [rad]
 
 # Examples
-```julia-repl
-julia> mass_matrix(SVector(0., 0., 0., 0., 0., 0., 0.))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> mass_matrix(q)
+7×7 MMatrix{7, 7, Float64, 49} with indices SOneTo(7)×SOneTo(7):
+  0.494054     -0.172401      0.26987      0.097991      0.030743     0.00400175   -0.000391656
+ -0.172401      0.652499     -0.235912     0.0970044    -0.0183927    0.00189615    0.000522066
+  0.26987      -0.235912      0.234615     0.000851294   0.0278451    0.00085165   -0.000479402
+  0.097991      0.0970044     0.000851294  0.238603      0.00116619   0.0346251     0.00192549
+  0.030743     -0.0183927     0.0278451    0.00116619    0.00750583   3.56828e-5    0.000463883
+  0.00400175    0.00189615    0.00085165   0.0346251     3.56828e-5   0.0126349     0.000656714
+ -0.000391656   0.000522066  -0.000479402  0.00192549    0.000463883  0.000656714   0.00067412
 ```
 """
 function mass_matrix(q::SVector{7, Float64})

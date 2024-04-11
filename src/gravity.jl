@@ -12,9 +12,18 @@ This function reduces the number of dynamic memory allocation.
 - `G::MVector{7, Float64}`: the gravity term of the robot []
 
 # Examples
-```julia-repl
-julia> gravity!(zeros(SVector{7}), zeros(MVector{7}))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> G = zeros(MVector{7})
+julia> gravity!(q, G)
+7-element MVector{7, Float64} with indices SOneTo(7):
+   1.7862417274472353e-16
+ -10.576350989174017
+   3.0274799819651212
+  -5.734529044767631
+   0.2514842083025938
+  -0.42307721718230645
+  -0.024979720551009294
 ```
 """
 function gravity!(q::SVector{7, Float64}, G::MVector{7, Float64})
@@ -189,15 +198,21 @@ end
 
 Calculate the gravity term of Kinova Gen3 robot for a given configuration.
 
-This function reduces the number of dynamic memory allocation.
-
 # Arguments
 - `q::SVector{7, Float64}`: the joint angles of the robot [rad]
 
 # Examples
-```julia-repl
-julia> gravity(zeros(SVector{7}))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> gravity(q)
+7-element MVector{7, Float64} with indices SOneTo(7):
+   1.7862417274472353e-16
+ -10.576350989174017
+   3.0274799819651212
+  -5.734529044767631
+   0.2514842083025938
+  -0.42307721718230645
+  -0.024979720551009294
 ```
 """
 function gravity(q::SVector{7, Float64})

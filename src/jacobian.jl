@@ -13,9 +13,17 @@ This function does not perform dynamic memory allocation.
 - `J::MMatrix{6, 7, Float64}`: the geometric Jacobian of the robot []
 
 # Examples
-```julia-repl
-julia> jacobian!(zeros(SVector{7}), zeros(MMatrix{6,7})))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> J = zeros(MMatrix{6, 7})
+julia> jacobian!(q, J)
+6×7 MMatrix{6, 7, Float64, 42} with indices SOneTo(6)×SOneTo(7):
+ -0.393073   0.159344  -0.330236  -0.26764   -0.0886181  -0.11046    0.0
+ -0.328746   0.0       -0.20503    0.10253   -0.0591954   0.10253    0.0
+  0.0       -0.328746   0.190662  -0.345176   0.051568   -0.0729318  0.0
+  0.0        0.0       -0.5        0.75      -0.433013    0.75       0.0473672
+  0.0        1.0        0.0        0.5        0.866025    0.5        0.612372
+ -1.0        0.0       -0.866025  -0.433013   0.25       -0.433013   0.789149
 ```
 """
 function jacobian!(q::SVector{7, Float64}, J::MMatrix{6, 7, Float64})
@@ -173,9 +181,16 @@ Calculate the velocity level forward kinematics for Kinova Gen3 robot.
 - `q::SVector{7, Float64}`: the joint angles of the robot [rad]
 
 # Examples
-```julia-repl
-julia> jacobian(zeros(SVector{7}))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> jacobian(q)
+6×7 MMatrix{6, 7, Float64, 42} with indices SOneTo(6)×SOneTo(7):
+ -0.393073   0.159344  -0.330236  -0.26764   -0.0886181  -0.11046    0.0
+ -0.328746   0.0       -0.20503    0.10253   -0.0591954   0.10253    0.0
+  0.0       -0.328746   0.190662  -0.345176   0.051568   -0.0729318  0.0
+  0.0        0.0       -0.5        0.75      -0.433013    0.75       0.0473672
+  0.0        1.0        0.0        0.5        0.866025    0.5        0.612372
+ -1.0        0.0       -0.866025  -0.433013   0.25       -0.433013   0.789149
 ```
 """
 function jacobian(q::SVector{7, Float64})

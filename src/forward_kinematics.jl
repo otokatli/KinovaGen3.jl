@@ -14,8 +14,11 @@ This function does not perform dynamic memory allocation.
 
 # Examples
 ```julia-repl
-julia> forward_kinematics(zeros(SVector{7}), zeros(MVector{3}), zeros(MVector{3, 3}))
-([0.0, -0.0248501, 1.18736], [1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0])
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> x = zeros(MVector{3})
+julia> R = zeros(MMatrix{3, 3})
+julia> forward_kinematics!(q, x, R)
+([0.32874611223407973, -0.393073312842223, 0.44415411959033596], [-0.6597396084411711 0.75 -0.047367172745376274; 0.6123724356957945 0.5000000000000001 -0.6123724356957946; -0.4355957403991577 -0.43301270189221924 -0.7891491309924313])
 ```
 """
 function forward_kinematics!(q::SVector{7, Float64}, x::MVector{3, Float64}, R::MMatrix{3, 3, Float64})
@@ -110,9 +113,10 @@ Calculate the position level forward kinematics for Kinova Gen3 robot.
 - `q::SVector{7, Float64}`: the joint angles of the robot [rad]
 
 # Examples
-```julia-repl
-julia> forward_kinematics(zeros(SVector{7}))
-([0.0, -0.0248501, 1.18736], [1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0])
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> forward_kinematics(q)
+([0.32874611223407973, -0.393073312842223, 0.44415411959033596], [-0.6597396084411711 0.75 -0.047367172745376274; 0.6123724356957945 0.5000000000000001 -0.6123724356957946; -0.4355957403991577 -0.43301270189221924 -0.7891491309924313])
 ```
 """
 function forward_kinematics(q::SVector{7, Float64})

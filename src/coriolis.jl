@@ -13,9 +13,19 @@ This function reduces the number of dynamic memory allocation.
 - `C::MVector{7, Float64}`: the mass matrix of the robot []
 
 # Examples
-```julia-repl
-julia> coriolis!(zeros(SVector{7}), zeros(SVector{7}), zeros(MVector{7}))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> qp = SVector(0.08123992859372045, 0.1594522268081302, 0.14487502589784196, 0.09843558598385844, 0.06467638628492739, 0.05374794957035123, 0.07384203846053861)
+julia> C = zeros(MVector{7})
+julia> coriolis!(q, qp, C)
+7-element MVector{7, Float64} with indices SOneTo(7):
+  0.004668503395502678
+ -0.021228409144909945
+  0.009371757499649963
+ -0.000447318871758321
+  0.0008351413947819465
+  0.001688511069591081
+  0.00010500683267616118
 ```
 """
 function coriolis!(q::SVector{7, Float64}, qp::SVector{7, Float64}, C::MVector{7, Float64})
@@ -1070,9 +1080,18 @@ Calculate the Coriolis term, C(q, qp)qp, of Kinova Gen3 robot for a given config
 - `qp::SVector{7, Float64}`: the joint velocities of the robot [rad/s]
 
 # Examples
-```julia-repl
-julia> coriolis!(zeros(SVector{7}), zeros(SVector{7}), zeros(SVector{7}))
-coming soon...
+```jldoctest
+julia> q = SVector(0.0, π / 6, π / 3, π / 2, 0.0, π / 4, 0.0)
+julia> qp = SVector(0.08123992859372045, 0.1594522268081302, 0.14487502589784196, 0.09843558598385844, 0.06467638628492739, 0.05374794957035123, 0.07384203846053861)
+julia> coriolis(q, qp)
+7-element MVector{7, Float64} with indices SOneTo(7):
+  0.004668503395502678
+ -0.021228409144909945
+  0.009371757499649963
+ -0.000447318871758321
+  0.0008351413947819465
+  0.001688511069591081
+  0.00010500683267616118
 ```
 """
 function coriolis(q::SVector{7, Float64}, qp::SVector{7, Float64})
